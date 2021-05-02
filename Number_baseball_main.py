@@ -22,14 +22,25 @@ class Umpire:
 
 
 class Pitcher:
-    def __init__(self, playerNum):
+    def __init__(self, playerNum, playerType):
         self.playerNum = playerNum
         self.digit = Game_settings.digits
+        self.type = playerType
 
     def receive_secretNum(self):
+        if self.type == "User":
+            return self.receive_secretNum_User()
+        elif self.type == "AI":
+            return self.receive_secretNum_AI()
+
+    def receive_secretNum_User(self):
         print("Player%d, please enter your %d digit secret number." % (self.playerNum + 1, self.digit))
         secret_num = input()
         return secret_num
+
+    def receive_secretNum_AI(self):
+        pass
+        return 0
 
     def receive_questionNum(self):
         print("Player%d, please enter your %d digit question number." % (self.playerNum + 1, self.digit))
@@ -47,15 +58,31 @@ class AnswerSet:
         return 'Answer: {} Strike, {} Ball, {} Out'.format(self.strike, self.ball, self.out)
 
 
+def StartingQuestion():
+    print("===============Number Baseball Game===============")
+    print("Please select the game type.")
+    print("1. User VS User")
+    print("2. User VS AI")
+    answer = int(input())
+    return answer
+
+
 if __name__ == "__main__":
-    umpire = Umpire()
-    player1 = Pitcher(0)
-    player2 = Pitcher(1)
+    gameType = StartingQuestion()
+    if gameType == 1:
+        player1 = Pitcher(0, "User")
+        player2 = Pitcher(1, "User")
+    else:
+        player1 = Pitcher(0, "User")
+        player2 = Pitcher(1, "AI")
     players = [player1, player2]
+    umpire = Umpire()
 
     for player in players:
-        umpire.secret_num.append(player.receive_secretNum())
+        secretNum = player.receive_secretNum()
+        umpire.secret_num.append(secretNum)
         print("\n" * 20)
+
     gameOn = True
     inning = 0
     while gameOn:
@@ -66,4 +93,3 @@ if __name__ == "__main__":
             replied = umpire.reply(order, question)
             print(replied)
         print()
-
