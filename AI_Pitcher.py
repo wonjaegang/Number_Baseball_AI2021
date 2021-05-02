@@ -1,6 +1,7 @@
 import random
 
 
+# Randomly set secret number
 def setSecretNum(digit):
     secretNum = []
     for _ in range(digit):

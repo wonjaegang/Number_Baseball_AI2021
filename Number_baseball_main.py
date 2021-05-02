@@ -7,6 +7,7 @@ class Umpire:
         self.digits = Game_settings.digits
         self.secret_num = []
 
+    # Answer the question by comparing it to the opponent's secret number.
     def reply(self, playerNum, questionNum):
         answerSet = AnswerSet()
         target_secretNum = self.secret_num[1 - playerNum]
@@ -27,6 +28,7 @@ class Pitcher:
         self.digit = Game_settings.digits
         self.type = playerType
 
+    # Get secret number from user or AI.
     def receive_secretNum(self):
         if self.type == "User":
             return self.receive_secretNum_User()
@@ -44,6 +46,7 @@ class Pitcher:
         print(secret_num)
         return secret_num
 
+    # Get question number from user or AI.
     def receive_questionNum(self):
         print("Player%d, please enter your %d digit question numbers." % (self.playerNum + 1, self.digit))
         question_num = input()
@@ -70,6 +73,7 @@ def StartingQuestion():
 
 
 if __name__ == "__main__":
+    # Set game type and declare instances
     gameType = StartingQuestion()
     if gameType == 1:
         player1 = Pitcher(0, "User")
@@ -80,6 +84,7 @@ if __name__ == "__main__":
     players = [player1, player2]
     umpire = Umpire()
 
+    # Set each player's secret number, and resister it to umpire instance
     for player in players:
         secretNum = player.receive_secretNum()
         umpire.secret_num.append(secretNum)
