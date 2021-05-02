@@ -34,16 +34,18 @@ class Pitcher:
             return self.receive_secretNum_AI()
 
     def receive_secretNum_User(self):
-        print("Player%d, please enter your %d digit secret number." % (self.playerNum + 1, self.digit))
+        print("Player%d, please enter your %d digit, non-duplicate secret numbers." % (self.playerNum + 1, self.digit))
         secret_num = input()
         return secret_num
 
     def receive_secretNum_AI(self):
-        pass
-        return 0
+        print("Player%d, please enter your %d digit, non-duplicate secret numbers." % (self.playerNum + 1, self.digit))
+        secret_num = AI_Pitcher.setSecretNum(self.digit)
+        print(secret_num)
+        return secret_num
 
     def receive_questionNum(self):
-        print("Player%d, please enter your %d digit question number." % (self.playerNum + 1, self.digit))
+        print("Player%d, please enter your %d digit question numbers." % (self.playerNum + 1, self.digit))
         question_num = input()
         return question_num
 
@@ -81,7 +83,7 @@ if __name__ == "__main__":
     for player in players:
         secretNum = player.receive_secretNum()
         umpire.secret_num.append(secretNum)
-        print("\n" * 20)
+        print(".\n" * 20)
 
     gameOn = True
     inning = 0
