@@ -23,3 +23,9 @@ def setSecretNum(setDigit):
                 secretNum = secretNum + num
                 break
     return secretNum
+
+
+def setQuestionNum():
+    questionNum = "1234"
+    return questionNum
+

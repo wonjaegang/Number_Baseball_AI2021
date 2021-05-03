@@ -4,6 +4,7 @@ import AI_Pitcher
 class Umpire:
     def __init__(self):
         self.secret_num = []
+        self.victory = [False, False]
 
     # Answer the question by comparing it to the opponent's secret number.
     def reply(self, playerNum, questionNum):
@@ -17,7 +18,19 @@ class Umpire:
                     answerSet.ball += 1
             else:
                 answerSet.out += 1
+        if answerSet.strike == settings.digit:
+            self.victory[playerNum] = True
         return answerSet
+
+    def isGameOver(self):
+        if sum(self.victory) == 2:
+            print("***** DRAW!! ****")
+            return True
+        elif sum(self.victory) == 1:
+            print("***** Player%d WIN!! *****" % (self.victory.index(True) + 1))
+            return True
+        else:
+            return False
 
 
 class Pitcher:
@@ -122,9 +135,12 @@ if __name__ == "__main__":
     inning = 0
     while gameOn:
         inning += 1
-        print("*****Player1(%s) VS Player2(%s) - Inning : %d *****" % (player1.name, player2.name, inning))
+        print("***** Player1(%s) VS Player2(%s) - Inning : %d *****" % (player1.name, player2.name, inning))
         for order, player in enumerate(players):
             question = player.receive_questionNum()
             replied = umpire.reply(order, question)
             print(replied)
         print()
+        if umpire.isGameOver():
+            print("[It took %d inning to victory]" % inning)
+            break
