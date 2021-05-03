@@ -61,8 +61,21 @@ class Pitcher:
 
     # Get question number from user or AI.
     def receive_questionNum(self):
+        if self.type == "User":
+            return self.receive_questionNum_User()
+        elif self.type == "AI":
+            return self.receive_questionNum_AI()
+
+    def receive_questionNum_User(self):
         print("Player%d, please enter your %d digit question numbers." % (self.playerNum + 1, settings.digit))
         question_num = input()
+        return question_num
+
+    def receive_questionNum_AI(self):
+        print("Player%d, please enter your %d digit, question numbers."
+              % (self.playerNum + 1, settings.digit))
+        question_num = AI_Pitcher.setQuestionNum(self.name)
+        print(question_num)
         return question_num
 
 
