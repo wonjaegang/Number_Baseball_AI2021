@@ -1,10 +1,8 @@
 import AI_Pitcher
-import Game_settings
 
 
 class Umpire:
     def __init__(self):
-        self.digits = Game_settings.digits
         self.secret_num = []
 
     # Answer the question by comparing it to the opponent's secret number.
@@ -23,10 +21,11 @@ class Umpire:
 
 
 class Pitcher:
-    def __init__(self, playerNum, playerType):
+    def __init__(self, playerNum, playerType, playerName):
         self.playerNum = playerNum
-        self.digit = Game_settings.digits
+        self.digit = settings.digit
         self.type = playerType
+        self.name = playerName
 
     # Get secret number from user or AI.
     def receive_secretNum(self):
@@ -63,24 +62,53 @@ class AnswerSet:
         return 'Answer: {} Strike, {} Ball, {} Out'.format(self.strike, self.ball, self.out)
 
 
-def StartingQuestion():
-    print("===============Number Baseball Game===============")
-    print("Please select the game type.")
-    print("1. User VS User")
-    print("2. User VS AI")
-    answer = int(input())
-    return answer
+class Settings:
+    def __init__(self):
+        self.digit = 4
+        self.AINameList = ["김광현", "오승환", "박찬호", "양현종", "류현진"]
+        self.playerType = ["", ""]
+        self.playerName = ["", ""]
+
+    # Get settings from User input
+    def getUserSettings(self):
+        print("===============Number Baseball Game===============")
+        print("Please select the game type.")
+        print("1. User VS User")
+        print("2. User VS AI")
+        print("3. AI VS AI")
+        answer = int(input())
+        if answer == 1:
+            self.playerType[0] = "User"
+            self.playerName[0] = "User"
+            self.playerType[1] = "User"
+            self.playerName[1] = "User"
+        elif answer == 2:
+            self.playerType[0] = "User"
+            self.playerName[0] = "User"
+            self.playerType[1] = "AI"
+            print("Please select your opponent.")
+            self.getAIName(1)
+        elif answer == 3:
+            self.playerType[0] = "AI"
+            self.playerType[1] = "AI"
+            for i in range(2):
+                print("Please select player%d." % (i + 1))
+                self.getAIName(i)
+
+    # Get AI name from int-type User input
+    def getAIName(self, playerNum):
+        for index, name in enumerate(self.AINameList):
+            print("%d.%s" % (index + 1, name))
+        nameIndex = int(input())
+        self.playerName[playerNum] = self.AINameList[nameIndex - 1]
 
 
 if __name__ == "__main__":
-    # Set game type and declare instances
-    gameType = StartingQuestion()
-    if gameType == 1:
-        player1 = Pitcher(0, "User")
-        player2 = Pitcher(1, "User")
-    else:
-        player1 = Pitcher(0, "User")
-        player2 = Pitcher(1, "AI")
+    # Set game settings and declare instances
+    settings = Settings()
+    settings.getUserSettings()
+    player1 = Pitcher(0, settings.playerType[0], settings.playerName[0])
+    player2 = Pitcher(1, settings.playerType[1], settings.playerName[1])
     players = [player1, player2]
     umpire = Umpire()
 
@@ -94,7 +122,7 @@ if __name__ == "__main__":
     inning = 0
     while gameOn:
         inning += 1
-        print("***** Inning : %d *****" % inning)
+        print("*****Player1(%s) VS Player2(%s) - Inning : %d *****" % (player1.name, player2.name, inning))
         for order, player in enumerate(players):
             question = player.receive_questionNum()
             replied = umpire.reply(order, question)
