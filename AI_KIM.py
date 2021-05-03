@@ -9,13 +9,17 @@
 
 import random
 
+digit = 0
 
-def setSecretNum(digit):
-    secretNum = []
+
+def setSecretNum(setDigit):
+    global digit
+    digit = setDigit
+    secretNum = ""
     for _ in range(digit):
         while True:
-            num = random.randrange(0, 10)
+            num = str(random.randrange(0, 10))
             if num not in secretNum:
-                secretNum.append(num)
+                secretNum = secretNum + num
                 break
     return secretNum

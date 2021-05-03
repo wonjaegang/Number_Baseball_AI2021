@@ -23,7 +23,6 @@ class Umpire:
 class Pitcher:
     def __init__(self, playerNum, playerType, playerName):
         self.playerNum = playerNum
-        self.digit = settings.digit
         self.type = playerType
         self.name = playerName
 
@@ -35,19 +34,21 @@ class Pitcher:
             return self.receive_secretNum_AI()
 
     def receive_secretNum_User(self):
-        print("Player%d, please enter your %d digit, non-duplicate secret numbers." % (self.playerNum + 1, self.digit))
+        print("Player%d, please enter your %d digit, non-duplicate secret numbers."
+              % (self.playerNum + 1, settings.digit))
         secret_num = input()
         return secret_num
 
     def receive_secretNum_AI(self):
-        print("Player%d, please enter your %d digit, non-duplicate secret numbers." % (self.playerNum + 1, self.digit))
-        secret_num = AI_Pitcher.setSecretNum(self.digit, self.name)
+        print("Player%d, please enter your %d digit, non-duplicate secret numbers."
+              % (self.playerNum + 1, settings.digit))
+        secret_num = AI_Pitcher.setSecretNum(settings.digit, self.name)
         print(secret_num)
         return secret_num
 
     # Get question number from user or AI.
     def receive_questionNum(self):
-        print("Player%d, please enter your %d digit question numbers." % (self.playerNum + 1, self.digit))
+        print("Player%d, please enter your %d digit question numbers." % (self.playerNum + 1, settings.digit))
         question_num = input()
         return question_num
 
