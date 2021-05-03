@@ -41,7 +41,7 @@ class Pitcher:
 
     def receive_secretNum_AI(self):
         print("Player%d, please enter your %d digit, non-duplicate secret numbers." % (self.playerNum + 1, self.digit))
-        secret_num = AI_Pitcher.setSecretNum(self.digit)
+        secret_num = AI_Pitcher.setSecretNum(self.digit, self.name)
         print(secret_num)
         return secret_num
 
@@ -65,7 +65,6 @@ class AnswerSet:
 class Settings:
     def __init__(self):
         self.digit = 4
-        self.AINameList = ["김광현", "오승환", "박찬호", "양현종", "류현진"]
         self.playerType = ["", ""]
         self.playerName = ["", ""]
 
@@ -97,10 +96,10 @@ class Settings:
 
     # Get AI name from int-type User input
     def getAIName(self, playerNum):
-        for index, name in enumerate(self.AINameList):
+        for index, name in enumerate(AI_Pitcher.AINameList):
             print("%d.%s" % (index + 1, name))
         nameIndex = int(input())
-        self.playerName[playerNum] = self.AINameList[nameIndex - 1]
+        self.playerName[playerNum] = AI_Pitcher.AINameList[nameIndex - 1]
 
 
 if __name__ == "__main__":
