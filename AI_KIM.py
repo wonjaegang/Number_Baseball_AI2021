@@ -12,7 +12,7 @@ import itertools
 
 digit = 0
 lastQuestion = ""
-lastReply = False
+lastReply = []
 availableTarget = []
 
 

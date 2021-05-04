@@ -42,39 +42,27 @@ class Pitcher:
 
     # Get secret number from user or AI. To AI, initialize the number of digit too.
     def receive_secretNum(self):
+        print("Player%d, please enter your %d digit, non-duplicate secret numbers."
+              % (self.playerNum + 1, settings.digit))
         if self.type == "User":
-            return self.receive_secretNum_User()
+            return input()
         elif self.type == "AI":
             return self.receive_secretNum_AI()
 
-    def receive_secretNum_User(self):
-        print("Player%d, please enter your %d digit, non-duplicate secret numbers."
-              % (self.playerNum + 1, settings.digit))
-        secret_num = input()
-        return secret_num
-
     def receive_secretNum_AI(self):
-        print("Player%d, please enter your %d digit, non-duplicate secret numbers."
-              % (self.playerNum + 1, settings.digit))
         secret_num = AI_Pitcher.setSecretNum(settings.digit, self.name)
         print(secret_num)
         return secret_num
 
     # Get question number from user or AI
     def receive_questionNum(self):
+        print("Player%d, please enter your %d digit question numbers." % (self.playerNum + 1, settings.digit))
         if self.type == "User":
-            return self.receive_questionNum_User()
+            return input()
         elif self.type == "AI":
             return self.receive_questionNum_AI()
 
-    def receive_questionNum_User(self):
-        print("Player%d, please enter your %d digit question numbers." % (self.playerNum + 1, settings.digit))
-        question_num = input()
-        return question_num
-
     def receive_questionNum_AI(self):
-        print("Player%d, please enter your %d digit, question numbers."
-              % (self.playerNum + 1, settings.digit))
         question_num = AI_Pitcher.setQuestionNum(self.name)
         print(question_num)
         return question_num
@@ -82,7 +70,7 @@ class Pitcher:
     # Send AI to umpire's reply
     def listenToReply(self, answer):
         if self.type == "AI":
-            AI_Pitcher.listenReply(answer, self.name)
+            AI_Pitcher.listenReply([answer.strike, answer.ball, answer.out], self.name)
 
 
 class AnswerSet:

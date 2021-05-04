@@ -10,10 +10,9 @@
 import random
 import itertools
 
-
 digit = 0
 lastQuestion = ""
-lastReply = False
+lastReply = []
 availableTarget = []
 
 
@@ -31,16 +30,23 @@ def setSecretNum():
 
 
 def setQuestionNum():
-
-    questionNum = "1234"
-
+    updateAvailable()
+    questionNum = random.choice(availableTarget)
     global lastQuestion
     lastQuestion = questionNum
     return questionNum
 
 
 def updateAvailable():
-    pass
+    if lastReply:
+        correctNums = []
+        for target in availableTarget:
+            if checkReply(target, lastQuestion).strike == lastReply[0]:
+                if checkReply(target, lastQuestion).ball == lastReply[1]:
+                    if checkReply(target, lastQuestion).out == lastReply[2]:
+                        correctNums.append(target)
+        availableTarget.clear()
+        availableTarget.extend(correctNums)
 
 
 def checkReply(targetNum, questionNum):
