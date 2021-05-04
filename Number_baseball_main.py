@@ -163,5 +163,5 @@ if __name__ == "__main__":
             player.listenToReply(replied)
         print()
         if umpire.isGameOver():
-            print("[It took %d inning to victory]" % inning)
+            print("[It took %d inning(s)]" % inning)
             break

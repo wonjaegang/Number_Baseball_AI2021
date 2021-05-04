@@ -10,7 +10,8 @@
 import random
 
 digit = 0
-lastReply = 0
+lastQuestion = ""
+lastReply = False
 
 
 class AnswerSet:
@@ -20,9 +21,12 @@ class AnswerSet:
         self.out = 0
 
 
-def setSecretNum(setDigit):
+def initializeAI(setDigit):
     global digit
     digit = setDigit
+
+
+def setSecretNum():
     secretNum = ""
     for _ in range(digit):
         while True:
@@ -34,7 +38,11 @@ def setSecretNum(setDigit):
 
 
 def setQuestionNum():
+
     questionNum = "1234"
+
+    global lastQuestion
+    lastQuestion = questionNum
     return questionNum
 
 

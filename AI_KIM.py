@@ -10,12 +10,16 @@
 import random
 
 digit = 0
-lastReply = 0
+lastQuestion = ""
+lastReply = False
 
 
-def setSecretNum(setDigit):
+def initializeAI(setDigit):
     global digit
     digit = setDigit
+
+
+def setSecretNum():
     secretNum = ""
     for _ in range(digit):
         while True:
@@ -34,4 +38,6 @@ def setQuestionNum():
             if num not in questionNum:
                 questionNum = questionNum + num
                 break
+    global lastQuestion
+    lastQuestion = questionNum
     return questionNum

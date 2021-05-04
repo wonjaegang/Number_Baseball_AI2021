@@ -18,7 +18,8 @@ def name2header(name):
 
 
 def setSecretNum(digit, AIName):
-    return name2header(AIName).setSecretNum(digit)
+    name2header(AIName).initializeAI(digit)
+    return name2header(AIName).setSecretNum()
 
 
 def setQuestionNum(AIName):
