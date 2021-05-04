@@ -3,13 +3,14 @@
 #
 #   KIM's strategy:
 #     - Kim 'RANDOMLY' pick his secret number.
-#     - Kim 'RANDOMLY' pick his question number among the 'AVAILABLE NUMBERS'.
+#     - Kim 'RANDOMLY' pick his question number.
 #
 # ================================================================================================
 
 import random
 
 digit = 0
+lastReply = 0
 
 
 def setSecretNum(setDigit):
@@ -26,6 +27,11 @@ def setSecretNum(setDigit):
 
 
 def setQuestionNum():
-    questionNum = "1234"
+    questionNum = ""
+    for _ in range(digit):
+        while True:
+            num = str(random.randrange(0, 10))
+            if num not in questionNum:
+                questionNum = questionNum + num
+                break
     return questionNum
-

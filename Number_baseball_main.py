@@ -22,6 +22,7 @@ class Umpire:
             self.victory[playerNum] = True
         return answerSet
 
+    # Make sure if the winner has been decided.
     def isGameOver(self):
         if sum(self.victory) == 2:
             print("***** DRAW!! ****")
@@ -34,12 +35,12 @@ class Umpire:
 
 
 class Pitcher:
-    def __init__(self, playerNum, playerType, playerName):
+    def __init__(self, playerNum):
         self.playerNum = playerNum
-        self.type = playerType
-        self.name = playerName
+        self.type = settings.playerType[playerNum]
+        self.name = settings.playerName[playerNum]
 
-    # Get secret number from user or AI.
+    # Get secret number from user or AI. To AI, initialize the number of digit too.
     def receive_secretNum(self):
         if self.type == "User":
             return self.receive_secretNum_User()
@@ -59,7 +60,7 @@ class Pitcher:
         print(secret_num)
         return secret_num
 
-    # Get question number from user or AI.
+    # Get question number from user or AI
     def receive_questionNum(self):
         if self.type == "User":
             return self.receive_questionNum_User()
@@ -77,6 +78,11 @@ class Pitcher:
         question_num = AI_Pitcher.setQuestionNum(self.name)
         print(question_num)
         return question_num
+
+    # Send AI to umpire's reply
+    def listenToReply(self, answer):
+        if self.type == "AI":
+            AI_Pitcher.listenReply(answer, self.name)
 
 
 class AnswerSet:
@@ -133,8 +139,8 @@ if __name__ == "__main__":
     # Set game settings and declare instances
     settings = Settings()
     settings.getUserSettings()
-    player1 = Pitcher(0, settings.playerType[0], settings.playerName[0])
-    player2 = Pitcher(1, settings.playerType[1], settings.playerName[1])
+    player1 = Pitcher(0)
+    player2 = Pitcher(1)
     players = [player1, player2]
     umpire = Umpire()
 
@@ -144,6 +150,7 @@ if __name__ == "__main__":
         umpire.secret_num.append(secretNum)
         print(".\n" * 20)
 
+    # Game starts
     gameOn = True
     inning = 0
     while gameOn:
@@ -153,6 +160,7 @@ if __name__ == "__main__":
             question = player.receive_questionNum()
             replied = umpire.reply(order, question)
             print(replied)
+            player.listenToReply(replied)
         print()
         if umpire.isGameOver():
             print("[It took %d inning to victory]" % inning)
