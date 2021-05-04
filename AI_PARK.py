@@ -1,9 +1,10 @@
 
-# =================================== AI pitcher : Oh ============================================
+# =================================== AI pitcher : PARK ==========================================
 #
-#   Oh's strategy:
-#     - Oh 'RANDOMLY' pick his secret number.
-#     - Oh 'RANDOMLY' pick his question number among the 'AVAILABLE NUMBERS'.
+#   PARK's strategy:
+#     - PARK 'RANDOMLY' pick his secret number.
+#     - PARK pick his question number Which has the 'HIGHEST CHANCE' to 'MINIMIZE' available number
+#            among the 'AVAILABLE NUMBERS'
 #
 # ================================================================================================
 
