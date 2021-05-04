@@ -8,36 +8,29 @@
 # ================================================================================================
 
 import random
+import itertools
 
 digit = 0
 lastQuestion = ""
 lastReply = False
+availableTarget = []
 
 
+# Set digit, initialize available target numbers.
 def initializeAI(setDigit):
     global digit
     digit = setDigit
+    availableTarget.extend(list(map(lambda x: "".join(x), list(itertools.permutations("0123456789", digit)))))
 
 
 def setSecretNum():
-    secretNum = ""
-    for _ in range(digit):
-        while True:
-            num = str(random.randrange(0, 10))
-            if num not in secretNum:
-                secretNum = secretNum + num
-                break
+    secretNum = random.choice(availableTarget)
+    print(availableTarget)
     return secretNum
 
 
 def setQuestionNum():
-    questionNum = ""
-    for _ in range(digit):
-        while True:
-            num = str(random.randrange(0, 10))
-            if num not in questionNum:
-                questionNum = questionNum + num
-                break
+    questionNum = random.choice(availableTarget)
     global lastQuestion
     lastQuestion = questionNum
     return questionNum

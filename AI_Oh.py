@@ -8,32 +8,25 @@
 # ================================================================================================
 
 import random
+import itertools
+
 
 digit = 0
 lastQuestion = ""
 lastReply = False
+availableTarget = []
 
 
-class AnswerSet:
-    def __init__(self):
-        self.strike = 0
-        self.ball = 0
-        self.out = 0
-
-
+# Set digit, initialize available target numbers.
 def initializeAI(setDigit):
     global digit
     digit = setDigit
+    availableTarget.extend(list(map(lambda x: "".join(x), list(itertools.permutations("0123456789", digit)))))
 
 
 def setSecretNum():
-    secretNum = ""
-    for _ in range(digit):
-        while True:
-            num = str(random.randrange(0, 10))
-            if num not in secretNum:
-                secretNum = secretNum + num
-                break
+    secretNum = random.choice(availableTarget)
+    print(availableTarget)
     return secretNum
 
 
@@ -44,6 +37,10 @@ def setQuestionNum():
     global lastQuestion
     lastQuestion = questionNum
     return questionNum
+
+
+def updateAvailable():
+    pass
 
 
 def checkReply(targetNum, questionNum):
@@ -57,3 +54,10 @@ def checkReply(targetNum, questionNum):
         else:
             answerSet.out += 1
     return answerSet
+
+
+class AnswerSet:
+    def __init__(self):
+        self.strike = 0
+        self.ball = 0
+        self.out = 0
