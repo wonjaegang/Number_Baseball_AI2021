@@ -38,6 +38,8 @@ def setQuestionNum():
 
         questionNum = random.choice(availableTarget)
 
+        print("    - Remaining answers:", availableTarget)
+
     lastQuestion.append(questionNum)
     return questionNum
 

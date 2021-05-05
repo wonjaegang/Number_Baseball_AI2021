@@ -50,7 +50,10 @@ def setQuestionNum():
         lowestCost = min(questionCostDic.values())
         bestQuestions = [key for key, value in questionCostDic.items() if value == lowestCost]
         questionNum = random.choice(bestQuestions)
-        print(questionCostDic)
+
+        print("    - Remaining answers:", availableTarget)
+        print("    - Best Questions:", bestQuestions)
+        print("    - Expected remaining answers: %.3f" % (lowestCost / len(availableTarget)))
 
     lastQuestion.append(questionNum)
     return questionNum

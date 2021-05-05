@@ -64,7 +64,7 @@ class Pitcher:
 
     def receive_questionNum_AI(self):
         question_num = AI_Pitcher.setQuestionNum(self.name)
-        print(question_num)
+        print("Question: %s" % question_num)
         return question_num
 
     # Send AI to umpire's reply
@@ -149,6 +149,7 @@ if __name__ == "__main__":
             replied = umpire.reply(order, question)
             print(replied)
             player.listenToReply(replied)
+            print("-" * 10)
         print()
         if umpire.isGameOver():
             print("[It took %d inning(s)]" % inning)
