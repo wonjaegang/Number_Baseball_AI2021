@@ -11,7 +11,7 @@ import random
 import itertools
 
 digit = 0
-lastQuestion = ""
+lastQuestion = []
 lastReply = []
 availableTarget = []
 
@@ -25,45 +25,39 @@ def initializeAI(setDigit):
 
 def setSecretNum():
     secretNum = random.choice(availableTarget)
-    print(availableTarget)
     return secretNum
 
 
 def setQuestionNum():
-    updateAvailableTarget()
-    questionNum = random.choice(availableTarget)
-    global lastQuestion
-    lastQuestion = questionNum
+    if not lastReply:
+        questionNum = random.choice(availableTarget)
+    else:
+        updated = checkAvailableTarget(availableTarget, lastQuestion.pop(), lastReply)
+        availableTarget.clear()
+        availableTarget.extend(updated)
+
+        questionNum = random.choice(availableTarget)
+
+    lastQuestion.append(questionNum)
     return questionNum
 
 
-def updateAvailableTarget():
-    if lastReply:
-        correctNums = []
-        for target in availableTarget:
-            if checkReply(target, lastQuestion).strike == lastReply[0]:
-                if checkReply(target, lastQuestion).ball == lastReply[1]:
-                    if checkReply(target, lastQuestion).out == lastReply[2]:
-                        correctNums.append(target)
-        availableTarget.clear()
-        availableTarget.extend(correctNums)
+def checkAvailableTarget(availableList, question, reply):
+    correctNums = []
+    for target in availableList:
+        if checkReply(target, question) == reply:
+            correctNums.append(target)
+    return correctNums
 
 
 def checkReply(targetNum, questionNum):
-    answerSet = AnswerSet()
+    answerSet = [0, 0, 0]
     for index, num in enumerate(questionNum):
         if num in targetNum:
             if targetNum.index(num) == index:
-                answerSet.strike += 1
+                answerSet[0] += 1
             else:
-                answerSet.ball += 1
+                answerSet[1] += 1
         else:
-            answerSet.out += 1
+            answerSet[2] += 1
     return answerSet
-
-
-class AnswerSet:
-    def __init__(self):
-        self.strike = 0
-        self.ball = 0
-        self.out = 0

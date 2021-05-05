@@ -85,7 +85,7 @@ class AnswerSet:
 
 class Settings:
     def __init__(self):
-        self.digit = 4
+        self.digit = 3
         self.playerType = ["", ""]
         self.playerName = ["", ""]
 

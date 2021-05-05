@@ -1,5 +1,6 @@
 import AI_KIM
 import AI_Oh
+import AI_PARK
 
 AINameList = ["김광현", "오승환", "박찬호", "양현종", "류현진"]
 
@@ -10,11 +11,11 @@ def name2header(name):
     elif name == "오승환":
         return AI_Oh
     elif name == "박찬호":
-        return AI_Oh
+        return AI_PARK
     elif name == "양현종":
-        return AI_Oh
+        pass
     elif name == "류현진":
-        return AI_Oh
+        pass
 
 
 def setSecretNum(digit, AIName):

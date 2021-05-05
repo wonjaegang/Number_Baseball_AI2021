@@ -11,7 +11,7 @@ import random
 import itertools
 
 digit = 0
-lastQuestion = ""
+lastQuestion = []
 lastReply = []
 availableTarget = []
 
@@ -25,12 +25,9 @@ def initializeAI(setDigit):
 
 def setSecretNum():
     secretNum = random.choice(availableTarget)
-    print(availableTarget)
     return secretNum
 
 
 def setQuestionNum():
     questionNum = random.choice(availableTarget)
-    global lastQuestion
-    lastQuestion = questionNum
     return questionNum
