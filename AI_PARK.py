@@ -37,14 +37,20 @@ def setQuestionNum():
         availableTarget.clear()
         availableTarget.extend(updated)
 
-        # questionCostDic = {}
-        # for question in availableTarget:
-        #     questionCostDic[question] = 0
-        #
-        # for question, cost in questionCostDic.items():
-        #     checkAvailableTarget(availableTarget)
-        # questionNum = "123"
-        questionNum = random.choice(availableTarget)
+        questionCostDic = {}
+        for question in availableTarget:
+            questionCostDic[question] = 0
+
+        for question, cost in questionCostDic.items():
+            for expectedSecretNum in availableTarget:
+                expectedReply = checkReply(expectedSecretNum, question)
+                remainingTargetNum = checkAvailableTarget(availableTarget, question, expectedReply)
+                questionCostDic[question] += len(remainingTargetNum)
+
+        lowestCost = min(questionCostDic.values())
+        bestQuestions = [key for key, value in questionCostDic.items() if value == lowestCost]
+        questionNum = random.choice(bestQuestions)
+        print(questionCostDic)
 
     lastQuestion.append(questionNum)
     return questionNum
@@ -69,4 +75,3 @@ def checkReply(targetNum, questionNum):
         else:
             answerSet[2] += 1
     return answerSet
-
